@@ -1,21 +1,5 @@
 {
   "version": 2,
   "buildCommand": "bundle install --deployment && rails assets:precompile",
-  "devCommand": "rails s",
-  "env": {
-    "RAILS_ENV": "production"
-  },
-  "functions": {
-    "api/[...route].rb": {
-      "runtime": "ruby3.3",
-      "memory": 1024,
-      "maxDuration": 30
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/api/[...route]"
-    }
-  ]
+  "devCommand": "rails s"
 }
