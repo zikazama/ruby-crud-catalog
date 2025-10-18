@@ -1,13 +1,9 @@
 {
-  "name": "ruby-crud-catalog",
   "version": 2,
   "buildCommand": "bundle install --deployment && rails assets:precompile",
   "devCommand": "rails s",
-  "framework": "rails",
   "env": {
-    "RAILS_ENV": {
-      "value": "production"
-    }
+    "RAILS_ENV": "production"
   },
   "functions": {
     "api/[...route].rb": {

@@ -9,7 +9,7 @@
     "test": "rails test"
   },
   "engines": {
-    "node": "18.x",
+    "node": "22.x",
     "ruby": "3.3.6"
   },
   "keywords": [
