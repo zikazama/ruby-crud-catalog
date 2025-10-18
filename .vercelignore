@@ -1,0 +1,29 @@
+# Ruby/Rails specific
+.bundle
+.gem
+vendor
+log
+tmp
+test
+spec
+coverage
+
+# Version control
+.git
+.gitignore
+.gitlab-ci.yml
+.circleci
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Documentation
+*.md
+!README.md
+
+# Development files
+.env.local
+.env.*.local
+*.pem
+.DS_Store

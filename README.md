@@ -553,6 +553,89 @@ To contribute to this project:
 5. Push: `git push origin feature/your-feature`
 6. Open a Pull Request
 
+## Deployment
+
+### Deploy to Vercel (Recommended for Easy Deployment)
+
+This application can be deployed to Vercel with a managed PostgreSQL database.
+
+**Prerequisites:**
+- GitHub account with repository pushed
+- Vercel account (https://vercel.com)
+- PostgreSQL database (Supabase, Railway, or similar)
+
+**Quick Deploy:**
+
+1. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Ready for Vercel deployment"
+   git push origin main
+   ```
+
+2. **Connect to Vercel**
+   - Go to https://vercel.com/new
+   - Select your GitHub repository
+   - Click "Import"
+
+3. **Set Environment Variables** (in Vercel Settings > Environment Variables)
+   ```
+   RAILS_ENV = production
+   RAILS_MASTER_KEY = [your-master-key-from-config/master.key]
+   DATABASE_URL = postgresql://user:password@host:5432/database
+   ```
+
+4. **Deploy**
+   - Click "Deploy"
+   - Wait for build to complete
+
+For detailed instructions, see: **[VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md)**
+
+### Deploy to Traditional Hosting
+
+For Docker-based deployment or traditional hosting:
+
+```bash
+# Build Docker image
+docker build -t ruby-crud-catalog .
+
+# Push to Docker Hub/Registry
+docker tag ruby-crud-catalog username/ruby-crud-catalog
+docker push username/ruby-crud-catalog
+
+# Deploy using docker-compose
+docker-compose up -d
+```
+
+### Deploy to Railway.app (Simple Alternative)
+
+```bash
+# Install Railway CLI
+npm i -g @railway/cli
+
+# Login to Railway
+railway login
+
+# Initialize project
+railway init
+
+# Deploy
+railway up
+```
+
+### Deploy to Render.com (Rails-Friendly)
+
+1. Push to GitHub
+2. Go to https://render.com
+3. Create new Web Service
+4. Connect GitHub repository
+5. Select Rails template
+6. Set environment variables
+7. Deploy
+
+See environment-specific guides:
+- **[VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md)** - Vercel with PostgreSQL
+
 ## License
 
 This project is for demonstration purposes.
@@ -569,4 +652,5 @@ For issues and questions:
 - Check the Troubleshooting section
 - Review application logs: `docker-compose logs -f web`
 - Consult Rails documentation: https://guides.rubyonrails.org/
+- See deployment guides: [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md)
 # ruby-crud-catalog

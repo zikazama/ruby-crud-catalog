@@ -1,0 +1,23 @@
+{
+  "name": "ruby-crud-catalog",
+  "version": "1.0.0",
+  "description": "Catalog Dashboard - Ruby on Rails CRUD Application",
+  "scripts": {
+    "build": "bundle install && rails assets:precompile",
+    "start": "puma",
+    "dev": "rails s",
+    "test": "rails test"
+  },
+  "engines": {
+    "node": "18.x",
+    "ruby": "3.3.6"
+  },
+  "keywords": [
+    "rails",
+    "crud",
+    "catalog",
+    "postgresql"
+  ],
+  "author": "Fauzi",
+  "license": "MIT"
+}

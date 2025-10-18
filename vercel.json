@@ -1,0 +1,25 @@
+{
+  "name": "ruby-crud-catalog",
+  "version": 2,
+  "buildCommand": "bundle install --deployment && rails assets:precompile",
+  "devCommand": "rails s",
+  "framework": "rails",
+  "env": {
+    "RAILS_ENV": {
+      "value": "production"
+    }
+  },
+  "functions": {
+    "api/[...route].rb": {
+      "runtime": "ruby3.3",
+      "memory": 3008,
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/[...route]"
+    }
+  ]
+}
