@@ -1,0 +1,45 @@
+<div class="header">
+  <div class="container">
+    <h1>Catalog Dashboard</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="nav">
+    <%= link_to "Dashboard", dashboard_path %>
+    <%= link_to "Categories", categories_path %>
+    <%= link_to "Products", products_path %>
+  </div>
+
+  <h2 style="margin-bottom: 20px;">Edit Category</h2>
+
+  <div class="card">
+    <%= form_with model: @category, local: true do |f| %>
+      <% if @category.errors.any? %>
+        <div class="alert alert-error">
+          <strong><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</strong>
+          <ul style="margin-left: 20px; margin-top: 10px;">
+            <% @category.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, placeholder: "Enter category name", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :publish %>
+        <%= f.select :publish, [['Yes', 1], ['No', 0]], {}, { required: true } %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Update Category", class: "btn btn-success" %>
+        <%= link_to "Cancel", categories_path, class: "btn btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

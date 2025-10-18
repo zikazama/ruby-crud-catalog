@@ -1,0 +1,75 @@
+<div class="header">
+  <div class="container">
+    <h1>Catalog Dashboard</h1>
+    <div class="user-info">
+      Logged in as: <strong><%= current_user.username %></strong>
+      | <%= link_to "Logout", logout_path, method: :delete, style: "color: white; text-decoration: underline;" %>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="nav">
+    <%= link_to "Dashboard", dashboard_path %>
+    <%= link_to "Categories", categories_path %>
+    <%= link_to "Products", products_path %>
+  </div>
+
+  <% if flash[:notice] %>
+    <div class="alert alert-success"><%= flash[:notice] %></div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="alert alert-error"><%= flash[:alert] %></div>
+  <% end %>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2>Products Management</h2>
+    <div class="actions">
+      <%= link_to "Export Excel", export_api_v1_products_path, class: "btn btn-success", target: "_blank" %>
+      <%= link_to "+ New Product", new_product_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+
+  <div class="card">
+    <% if @products.any? %>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Publish</th>
+            <th>Created At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @products.each do |product| %>
+            <tr>
+              <td><code style="font-size: 11px;"><%= product.id.first(8) %>...</code></td>
+              <td><strong><%= product.name %></strong></td>
+              <td><%= product.category&.name || '-' %></td>
+              <td>
+                <span class="badge badge-<%= product.publish == 1 ? 'yes' : 'no' %>">
+                  <%= product.publish == 1 ? 'Yes' : 'No' %>
+                </span>
+              </td>
+              <td><%= product.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+              <td>
+                <div class="actions">
+                  <%= link_to "Edit", edit_product_path(product), class: "btn btn-primary", style: "padding: 5px 10px; font-size: 12px;" %>
+                  <%= link_to "Delete", product_path(product), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", style: "padding: 5px 10px; font-size: 12px;" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p style="text-align: center; padding: 40px; color: #666;">
+        No products yet. <%= link_to "Create your first product", new_product_path %>
+      </p>
+    <% end %>
+  </div>
+</div>

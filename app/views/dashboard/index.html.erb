@@ -1,0 +1,73 @@
+<div class="header">
+  <div class="container">
+    <h1>Catalog Dashboard</h1>
+    <div class="user-info">
+      Logged in as: <strong><%= current_user.username %></strong> (<%= current_user.email %>)
+      | <%= link_to "Logout", logout_path, method: :delete, style: "color: white; text-decoration: underline;" %>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="nav">
+    <%= link_to "Dashboard", dashboard_path %>
+    <%= link_to "Categories", categories_path %>
+    <%= link_to "Products", products_path %>
+  </div>
+
+  <% if flash[:notice] %>
+    <div class="alert alert-success"><%= flash[:notice] %></div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="alert alert-error"><%= flash[:alert] %></div>
+  <% end %>
+
+  <h2 style="margin-bottom: 20px;">Welcome to Dashboard</h2>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+    <div class="card" style="text-align: center;">
+      <h3 style="color: #3498db; font-size: 36px;"><%= @categories_count %></h3>
+      <p style="color: #666;">Total Categories</p>
+      <%= link_to "Manage Categories &raquo;".html_safe, categories_path, class: "btn btn-primary", style: "margin-top: 15px;" %>
+    </div>
+
+    <div class="card" style="text-align: center;">
+      <h3 style="color: #27ae60; font-size: 36px;"><%= @products_count %></h3>
+      <p style="color: #666;">Total Products</p>
+      <%= link_to "Manage Products &raquo;".html_safe, products_path, class: "btn btn-success", style: "margin-top: 15px;" %>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom: 15px;">Recent Products</h3>
+    <% if @recent_products.any? %>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Publish</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recent_products.each do |product| %>
+            <tr>
+              <td><strong><%= product.name %></strong></td>
+              <td><%= product.category&.name || '-' %></td>
+              <td>
+                <span class="badge badge-<%= product.publish %>">
+                  <%= product.publish == 'yes' ? 'Yes' : 'No' %>
+                </span>
+              </td>
+              <td><%= product.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p style="color: #666; text-align: center; padding: 20px;">No products yet</p>
+    <% end %>
+  </div>
+</div>

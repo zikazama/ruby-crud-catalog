@@ -1,0 +1,50 @@
+<div class="header">
+  <div class="container">
+    <h1>Catalog Dashboard</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="nav">
+    <%= link_to "Dashboard", dashboard_path %>
+    <%= link_to "Categories", categories_path %>
+    <%= link_to "Products", products_path %>
+  </div>
+
+  <h2 style="margin-bottom: 20px;">Edit Product</h2>
+
+  <div class="card">
+    <%= form_with model: @product, local: true do |f| %>
+      <% if @product.errors.any? %>
+        <div class="alert alert-error">
+          <strong><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</strong>
+          <ul style="margin-left: 20px; margin-top: 10px;">
+            <% @product.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, placeholder: "Enter product name", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :category_id, "Category" %>
+        <%= f.select :category_id, options_from_collection_for_select(@categories, :id, :name, @product.category_id), { include_blank: "Select a category" }, required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :publish %>
+        <%= f.select :publish, [['Yes', 1], ['No', 0]], {}, { required: true } %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Update Product", class: "btn btn-success" %>
+        <%= link_to "Cancel", products_path, class: "btn btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
